@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.netvirta.mobile_knowledge_sharing_app">
    <application
-        android:label="mobile_knowledge_sharing_app"
+        android:label="Mobile KS"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

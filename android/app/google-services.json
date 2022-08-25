@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "639612988752",
+    "project_id": "mobile-ks",
+    "storage_bucket": "mobile-ks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639612988752:android:4a12b93d3ad5c03b61d055",
+        "android_client_info": {
+          "package_name": "com.netvirta.mobile_knowledge_sharing_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639612988752-5538en0uk4irsrmtvfnk2snamfaeoolv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEecAxjea9z0mzRm1labtVoHcdjvm6HQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639612988752-5538en0uk4irsrmtvfnk2snamfaeoolv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639612988752:android:87699014966c835161d055",
+        "android_client_info": {
+          "package_name": "com.netvirta.mobileks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639612988752-5538en0uk4irsrmtvfnk2snamfaeoolv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEecAxjea9z0mzRm1labtVoHcdjvm6HQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639612988752-5538en0uk4irsrmtvfnk2snamfaeoolv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

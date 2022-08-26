@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_knowledge_sharing_app/app/config.logger.dart';
 import 'package:mobile_knowledge_sharing_app/services/QuizService.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
 import 'package:mobile_knowledge_sharing_app/models/Question.dart';
@@ -6,6 +7,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class QuestionViewModel extends BaseViewModel {
+  final log = getLogger('QuestionViewModel');
   final _navigationService = locator<NavigationService>();
   final _quizService = locator<QuizService>();
 
@@ -37,10 +39,10 @@ class QuestionViewModel extends BaseViewModel {
     _quizService.validateAnswer(index);
 
     if (currentQuestion.isCorrect) {
-      print("OK GOOD");
+      log.d('OK GOOD');
       finalIsRight = true;
     } else {
-      print("NOT GOOD");
+      log.d('NOT GOOD');
       finalIsRight = false;
     }
 

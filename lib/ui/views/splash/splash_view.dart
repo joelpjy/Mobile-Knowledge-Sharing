@@ -52,7 +52,7 @@ class SplashView extends StatelessWidget {
                             fadeIn: true,
                             slidingBeginOffset: Offset(0, 1),
                             child: Text(
-                              "Mobile Team",
+                              'Mobile Team',
                               style: TextStyle(
                                   fontFamily: 'Aharoni',
                                   fontWeight: FontWeight.w600,
@@ -74,7 +74,7 @@ class SplashView extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            "Login with",
+                            'Login with',
                             style: TextStyle(
                                 fontFamily: 'Aharoni', color: ColorTheme.white),
                           ),

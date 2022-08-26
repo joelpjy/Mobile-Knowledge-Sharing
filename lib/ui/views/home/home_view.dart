@@ -47,7 +47,7 @@ class HomeView extends StatelessWidget {
               fadeIn: true,
               slidingBeginOffset: Offset(0, -1),
               child: Text(
-                "Mobile Quiz",
+                'Mobile Quiz',
                 style: TextStyle(
                     fontFamily: 'Aharoni',
                     fontWeight: FontWeight.w600,

@@ -12,7 +12,7 @@ void main() async {
   await Firebase.initializeApp();
 
   // pre-launch setup and config
-  setupLocator();
+  await setupLocator();
   // setupDialogUi();
   // setupSnackbar();
   // var firebaseCrashlyticsService = locator<FirebaseCrashlyticsService>();

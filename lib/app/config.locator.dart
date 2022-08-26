@@ -10,6 +10,7 @@ import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../services/QuizService.dart';
+import '../services/user_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -22,4 +23,6 @@ Future<void> setupLocator(
 // Register dependencies
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => QuizService());
+  locator.registerLazySingleton(() => SnackbarService());
+  locator.registerLazySingleton(() => UserService());
 }

@@ -14,34 +14,13 @@
       },
       "oauth_client": [
         {
-          "client_id": "639612988752-5538en0uk4irsrmtvfnk2snamfaeoolv.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCEecAxjea9z0mzRm1labtVoHcdjvm6HQw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "639612988752-5538en0uk4irsrmtvfnk2snamfaeoolv.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:639612988752:android:87699014966c835161d055",
-        "android_client_info": {
-          "package_name": "com.netvirta.mobileks"
-        }
-      },
-      "oauth_client": [
+          "client_id": "639612988752-i6qruksurmsvjfb1vdlmhlkvv61v12lv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.netvirta.mobile_knowledge_sharing_app",
+            "certificate_hash": "451e80cab408d7ed3579bdbcd1a1b86e56a6a407"
+          }
+        },
         {
           "client_id": "639612988752-5538en0uk4irsrmtvfnk2snamfaeoolv.apps.googleusercontent.com",
           "client_type": 3
@@ -58,6 +37,13 @@
             {
               "client_id": "639612988752-5538en0uk4irsrmtvfnk2snamfaeoolv.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "639612988752-rdhfglvpr57l5s29f2k7rntp5aemgr2g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.netvirta.mobileKnowledgeSharingApp"
+              }
             }
           ]
         }

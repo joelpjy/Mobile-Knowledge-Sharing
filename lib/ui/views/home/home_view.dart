@@ -11,11 +11,37 @@ class HomeView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.reactive(
       builder: (context, model, child) {
         return Scaffold(
-          backgroundColor: ColorTheme.aliceBlue,
+          drawer: Drawer(
+            child: ListView(
+              // Important: Remove any padding from the ListView.
+              padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: ColorTheme.cyberGrape,
+                  ),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      '${model.username}\n${model.userEmail}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                      textAlign: TextAlign.end,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  trailing: Icon(Icons.logout),
+                  title: const Text('Sign Out'),
+                  onTap: model.logout,
+                ),
+              ],
+            ),
+          ),
           appBar: AppBar(
             elevation: 1,
-            automaticallyImplyLeading: false,
-            backgroundColor: ColorTheme.russianViolet,
             centerTitle: true,
             title: DelayedDisplay(
               fadeIn: true,

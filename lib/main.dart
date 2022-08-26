@@ -9,10 +9,7 @@ const bool isProduction = bool.fromEnvironment('dart.vm.product');
 void main() async {
   // execute blocking functions only after binding completes
   WidgetsFlutterBinding.ensureInitialized();
-
-  print("123123");
   await Firebase.initializeApp();
-  print("456456456");
 
   // pre-launch setup and config
   setupLocator();

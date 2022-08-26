@@ -47,6 +47,7 @@ class QuizService {
 
   void initialise() async {
     var future = Future(() {});
+    questionList.clear();
     for (var i = 0; i < _finalQuestionList.length; i++) {
       future = future.then((_) {
         return Future.delayed(Duration(milliseconds: 75), () {

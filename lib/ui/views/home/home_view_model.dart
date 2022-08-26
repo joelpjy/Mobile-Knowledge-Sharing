@@ -1,13 +1,13 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mobile_knowledge_sharing_app/app/config.router.dart';
+import 'package:mobile_knowledge_sharing_app/models/user.dart';
 import 'package:mobile_knowledge_sharing_app/services/QuizService.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
 import 'package:mobile_knowledge_sharing_app/models/Question.dart';
-import 'package:mobile_knowledge_sharing_app/services/QuizService.dart';
 import 'package:mobile_knowledge_sharing_app/services/user_service.dart';
 import 'package:mobile_knowledge_sharing_app/ui/views/question/question_view.dart';
-import 'package:mobile_knowledge_sharing_app/ui/data/user.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

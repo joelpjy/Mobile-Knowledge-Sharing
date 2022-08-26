@@ -26,5 +26,6 @@ class HomeViewModel extends BaseViewModel {
     //if (!_quizService.questionList[index].isAnswered) {
     await _navigationService.navigateTo(Routes.questionView);
     //}
+    notifyListeners();
   }
 }

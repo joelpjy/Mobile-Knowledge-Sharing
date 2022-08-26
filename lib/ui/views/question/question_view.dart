@@ -64,7 +64,7 @@ class QuestionView extends StatelessWidget {
                               : Lottie.asset(
                                   'assets/json/red_cross.json',
                                   width: 400,
-                                  height: 375,
+                                  height: 400,
                                   repeat: false,
                                   fit: BoxFit.fill,
                                 )

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:mobile_knowledge_sharing_app/Services/QuizService.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.router.dart';
-import 'package:mobile_knowledge_sharing_app/ui/data/Question.dart';
+import 'package:mobile_knowledge_sharing_app/models/Question.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

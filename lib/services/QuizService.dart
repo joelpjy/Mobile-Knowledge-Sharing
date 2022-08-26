@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_knowledge_sharing_app/ui/data/Question.dart';
+import 'package:mobile_knowledge_sharing_app/models/Question.dart';
 
 class QuizService {
   final List<Question> _finalQuestionList = [

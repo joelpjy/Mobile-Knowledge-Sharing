@@ -9,7 +9,7 @@
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import '../Services/QuizService.dart';
+import '../services/QuizService.dart';
 
 final locator = StackedLocator.instance;
 

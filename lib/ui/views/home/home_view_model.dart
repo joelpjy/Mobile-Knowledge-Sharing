@@ -1,10 +1,10 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mobile_knowledge_sharing_app/Services/QuizService.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
-import 'package:mobile_knowledge_sharing_app/app/config.router.dart';
 import 'package:mobile_knowledge_sharing_app/models/Question.dart';
+import 'package:mobile_knowledge_sharing_app/services/QuizService.dart';
+import 'package:mobile_knowledge_sharing_app/ui/views/question/question_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -30,7 +30,10 @@ class HomeViewModel extends BaseViewModel {
   void questionSelected(int index) async {
     _quizService.currentSelectedIndex = index;
     //if (!_quizService.questionList[index].isAnswered) {
-    await _navigationService.navigateTo(Routes.questionView);
+    await _navigationService.navigateWithTransition(QuestionView(),
+        opaque: true,
+        duration: Duration(milliseconds: 200),
+        transitionStyle: Transition.fade);
     //}
     notifyListeners();
   }

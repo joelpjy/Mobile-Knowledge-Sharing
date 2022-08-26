@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_knowledge_sharing_app/Services/QuizService.dart';
+import 'package:mobile_knowledge_sharing_app/services/QuizService.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
 import 'package:mobile_knowledge_sharing_app/models/Question.dart';
 import 'package:stacked/stacked.dart';

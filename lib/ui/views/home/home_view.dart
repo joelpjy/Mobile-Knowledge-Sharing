@@ -108,26 +108,6 @@ class QuizListView extends StatelessWidget {
             ),
           ),
         );
-
-        /* Card(
-            child: ListTile(
-              title: Text(model.questionList[index].label),
-              trailing: model.questionList[index].isAnswered
-                  ? model.questionList[index].isCorrect
-                      ? Icon(
-                          Icons.check,
-                          color: Colors.green,
-                        )
-                      : Icon(
-                          Icons.close,
-                          color: Colors.red,
-                        )
-                  : Icon(Icons.question_mark),
-              onTap: () {
-                model.questionSelected(index);
-              },
-            ),
-          );*/
       },
     );
   }

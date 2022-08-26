@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobile_knowledge_sharing_app/Services/QuizService.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
 import 'package:mobile_knowledge_sharing_app/ui/data/Question.dart';
@@ -12,11 +13,25 @@ class QuestionViewModel extends BaseViewModel {
   List<Question> get questionList => _quizService.questionList;
   Question get currentQuestion =>
       questionList[_quizService.currentSelectedIndex!];
-  List<String> get choiceList => currentQuestion.choices;
+  List<String> get _choiceList => currentQuestion.choices;
   String get titleLabel => currentQuestion.label;
   String get question => currentQuestion.question;
 
-  Future initialise() async {}
+  List<String> finalChoiceList = [];
+
+  final GlobalKey<AnimatedListState> optionListKey = GlobalKey();
+
+  Future initialise() async {
+    var future = Future(() {});
+    for (var i = 0; i < _choiceList.length; i++) {
+      future = future.then((_) {
+        return Future.delayed(Duration(milliseconds: 75), () {
+          finalChoiceList.add(_choiceList[i]);
+          optionListKey.currentState?.insertItem(finalChoiceList.length - 1);
+        });
+      });
+    }
+  }
 
   void selectChoice(int index) async {
     _quizService.validateAnswer(index);

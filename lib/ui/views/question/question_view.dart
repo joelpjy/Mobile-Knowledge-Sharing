@@ -82,21 +82,26 @@ class QuestionView extends StatelessWidget {
 }
 
 class ChoiceList extends StatelessWidget {
-  QuestionViewModel model;
+  final QuestionViewModel model;
 
   ChoiceList({required this.model});
+  final Tween<Offset> _offset = Tween(begin: Offset(0, 1), end: Offset(0, 0));
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: model.choiceList.length,
-      itemBuilder: (context, index) {
-        return Card(
-          child: ListTile(
-            title: Text(model.choiceList[index]),
-            onTap: () {
-              model.selectChoice(index);
-            },
+    return AnimatedList(
+      key: model.optionListKey,
+      initialItemCount: model.finalChoiceList.length,
+      itemBuilder: (context, index, animation) {
+        return SlideTransition(
+          position: animation.drive(_offset),
+          child: Card(
+            child: ListTile(
+              title: Text(model.finalChoiceList[index]),
+              onTap: () {
+                model.selectChoice(index);
+              },
+            ),
           ),
         );
       },

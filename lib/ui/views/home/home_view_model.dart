@@ -1,4 +1,5 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_knowledge_sharing_app/Services/QuizService.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
@@ -11,9 +12,14 @@ class HomeViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _quizService = locator<QuizService>();
 
+  GlobalKey<AnimatedListState> get questionListKey =>
+      _quizService.questionListKey;
   List<Question> get questionList => _quizService.questionList;
+  String get totalScore => _quizService.getCurrentScore();
 
-  Future initialise() async {}
+  Future initialise() async {
+    _quizService.initialise();
+  }
 
   void questionMarkPress() async {
     await FirebaseCrashlytics.instance

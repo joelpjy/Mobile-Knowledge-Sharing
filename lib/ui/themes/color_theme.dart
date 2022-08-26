@@ -8,4 +8,5 @@ class ColorTheme {
   static const Color rhythm = Color(0xff81758e);
   static const Color aliceBlue = Color(0xffe3f2fd);
   static const Color white = Color(0xffffffff);
+  static const Color redOrange = Color(0xffff521b);
 }

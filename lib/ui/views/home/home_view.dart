@@ -40,24 +40,31 @@ class HomeView extends StatelessWidget {
               )
             ],
           ),
-          body: /*Column(
+          body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              /*TextLiquidFill(
-                loadUntil: 0.3,
-                text: 'MOBILE',
-                waveColor: ColorTheme.rhythm,
-                boxBackgroundColor: ColorTheme.russianViolet,
-                textStyle: TextStyle(
-                  fontFamily: 'Aharoni',
-                  fontSize: 40.0,
-                  fontWeight: FontWeight.bold,
+              Flexible(
+                child: QuizListView(model: model),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              DelayedDisplay(
+                delay: Duration(seconds: 1),
+                fadeIn: true,
+                slidingBeginOffset: Offset(0, 1),
+                child: Text(
+                  'Total Score: ${model.totalScore}',
+                  style: TextStyle(
+                      fontFamily: 'Aharoni',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 21,
+                      color: ColorTheme.redOrange),
                 ),
-              ),*/
+              ),
             ],
-          ),*/
-              QuizListView(model: model),
+          ),
         );
       },
       viewModelBuilder: () => HomeViewModel(),
@@ -67,16 +74,21 @@ class HomeView extends StatelessWidget {
 }
 
 class QuizListView extends StatelessWidget {
-  HomeViewModel model;
+  final HomeViewModel model;
 
   QuizListView({required this.model});
+  final Tween<Offset> _offset = Tween(begin: Offset(0, 1), end: Offset(0, 0));
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: model.questionList.length,
-        itemBuilder: (context, index) {
-          return Card(
+    return AnimatedList(
+      key: model.questionListKey,
+      initialItemCount: model.questionList.length,
+      shrinkWrap: true,
+      itemBuilder: (context, index, animation) {
+        return SlideTransition(
+          position: animation.drive(_offset),
+          child: Card(
             child: ListTile(
               title: Text(model.questionList[index].label),
               trailing: model.questionList[index].isAnswered
@@ -94,7 +106,29 @@ class QuizListView extends StatelessWidget {
                 model.questionSelected(index);
               },
             ),
-          );
-        });
+          ),
+        );
+
+        /* Card(
+            child: ListTile(
+              title: Text(model.questionList[index].label),
+              trailing: model.questionList[index].isAnswered
+                  ? model.questionList[index].isCorrect
+                      ? Icon(
+                          Icons.check,
+                          color: Colors.green,
+                        )
+                      : Icon(
+                          Icons.close,
+                          color: Colors.red,
+                        )
+                  : Icon(Icons.question_mark),
+              onTap: () {
+                model.questionSelected(index);
+              },
+            ),
+          );*/
+      },
+    );
   }
 }

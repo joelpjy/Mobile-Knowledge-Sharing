@@ -8,6 +8,6 @@ class SplashViewModel extends BaseViewModel {
 
   Future initialise() async {
     await Future.delayed(Duration(seconds: 3));
-    await _navigationService.navigateTo(Routes.homeView);
+    await _navigationService.clearStackAndShow(Routes.homeView);
   }
 }

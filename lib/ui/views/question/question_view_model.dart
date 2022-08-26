@@ -11,7 +11,7 @@ class QuestionViewModel extends BaseViewModel {
   bool? finalIsRight;
   List<Question> get questionList => _quizService.questionList;
   Question get currentQuestion =>
-      _quizService.questionList[_quizService.currentSelectedIndex!];
+      questionList[_quizService.currentSelectedIndex!];
   List<String> get choiceList => currentQuestion.choices;
   String get titleLabel => currentQuestion.label;
   String get question => currentQuestion.question;

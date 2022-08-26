@@ -1,5 +1,6 @@
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mobile_knowledge_sharing_app/ui/themes/color_theme.dart';
 import 'package:mobile_knowledge_sharing_app/ui/views/Question/question_view_model.dart';
 import 'package:stacked/stacked.dart';
@@ -30,16 +31,44 @@ class QuestionView extends StatelessWidget {
           ),
           body: Padding(
             padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: Stack(
               children: [
-                Text(
-                  model.question,
-                  style: TextStyle(
-                    fontFamily: 'Aharoni',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                  ),
+                Column(
+                  children: [
+                    Text(
+                      model.question,
+                      style: TextStyle(
+                        fontFamily: 'Aharoni',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    Expanded(
+                      child: ChoiceList(model: model),
+                    ),
+                  ],
+                ),
+                Container(
+                  child: Center(
+                      child: model.finalIsRight != null
+                          ? model.finalIsRight! == true
+                              ? Lottie.asset(
+                                  'assets/json/green_tick.json',
+                                  width: 400,
+                                  height: 400,
+                                  frameRate: FrameRate(120),
+                                  repeat: false,
+                                  fit: BoxFit.fill,
+                                )
+                              : Lottie.asset(
+                                  'assets/json/red_cross.json',
+                                  width: 400,
+                                  height: 375,
+                                  repeat: false,
+                                  fit: BoxFit.fill,
+                                )
+                          : null),
                 ),
               ],
             ),
@@ -48,6 +77,29 @@ class QuestionView extends StatelessWidget {
       },
       viewModelBuilder: () => QuestionViewModel(),
       onModelReady: (model) => model.initialise(),
+    );
+  }
+}
+
+class ChoiceList extends StatelessWidget {
+  QuestionViewModel model;
+
+  ChoiceList({required this.model});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: model.choiceList.length,
+      itemBuilder: (context, index) {
+        return Card(
+          child: ListTile(
+            title: Text(model.choiceList[index]),
+            onTap: () {
+              model.selectChoice(index);
+            },
+          ),
+        );
+      },
     );
   }
 }

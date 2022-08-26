@@ -5,7 +5,7 @@ class QuizService {
     Question(
         label: 'Question 1',
         question: 'Who is not part of the mobile team?',
-        answer: 0,
+        answer: 6,
         choices: [
           'Yu Long',
           'Karen',

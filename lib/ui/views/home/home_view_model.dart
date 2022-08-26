@@ -23,6 +23,8 @@ class HomeViewModel extends BaseViewModel {
 
   void questionSelected(int index) async {
     _quizService.currentSelectedIndex = index;
+    //if (!_quizService.questionList[index].isAnswered) {
     await _navigationService.navigateTo(Routes.questionView);
+    //}
   }
 }

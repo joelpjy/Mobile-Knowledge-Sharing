@@ -1,5 +1,3 @@
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/services.dart';
 import 'package:mobile_knowledge_sharing_app/Services/QuizService.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
 import 'package:mobile_knowledge_sharing_app/ui/data/Question.dart';
@@ -10,17 +8,29 @@ class QuestionViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _quizService = locator<QuizService>();
 
+  bool? finalIsRight;
   List<Question> get questionList => _quizService.questionList;
-  String get titleLabel =>
-      questionList[_quizService.currentSelectedIndex!].label;
-  String get question =>
-      questionList[_quizService.currentSelectedIndex!].question;
+  Question get currentQuestion =>
+      _quizService.questionList[_quizService.currentSelectedIndex!];
+  List<String> get choiceList => currentQuestion.choices;
+  String get titleLabel => currentQuestion.label;
+  String get question => currentQuestion.question;
 
   Future initialise() async {}
 
-  void questionMarkPress() async {
-    await FirebaseCrashlytics.instance
-        .recordError(error, null, reason: 'Aiya walaooo', fatal: true);
-    await SystemNavigator.pop();
+  void selectChoice(int index) async {
+    _quizService.validateAnswer(index);
+
+    if (currentQuestion.isCorrect) {
+      print("OK GOOD");
+      finalIsRight = true;
+    } else {
+      print("NOT GOOD");
+      finalIsRight = false;
+    }
+
+    notifyListeners();
+    await Future.delayed(Duration(seconds: 2));
+    _navigationService.back();
   }
 }

@@ -66,71 +66,73 @@ class SplashView extends StatelessWidget {
                     Spacer(
                       flex: 2,
                     ),
-                    DelayedDisplay(
-                      delay: Duration(seconds: 2),
-                      fadingDuration: const Duration(milliseconds: 500),
-                      fadeIn: true,
-                      slidingBeginOffset: Offset(0, 1),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Login with',
-                            style: TextStyle(
-                                fontFamily: 'Aharoni', color: ColorTheme.white),
-                          ),
-                          Divider(
-                            color: Colors.grey,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: GoogleAuthButton(
-                                  onPressed: model.signInWithGoogle,
-                                  style: AuthButtonStyle(
-                                    buttonType: AuthButtonType.icon,
-                                    iconType: AuthIconType.secondary,
-                                    borderRadius: 300,
+                    if (!model.isLogin)
+                      DelayedDisplay(
+                        delay: Duration(seconds: 2),
+                        fadingDuration: const Duration(milliseconds: 500),
+                        fadeIn: true,
+                        slidingBeginOffset: Offset(0, 1),
+                        child: Column(
+                          children: [
+                            Text(
+                              'Login with',
+                              style: TextStyle(
+                                  fontFamily: 'Aharoni',
+                                  color: ColorTheme.white),
+                            ),
+                            Divider(
+                              color: Colors.grey,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GoogleAuthButton(
+                                    onPressed: model.signInWithGoogle,
+                                    style: AuthButtonStyle(
+                                      buttonType: AuthButtonType.icon,
+                                      iconType: AuthIconType.secondary,
+                                      borderRadius: 300,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: FacebookAuthButton(
-                                  onPressed: model.facebookLogin,
-                                  style: AuthButtonStyle(
-                                    buttonType: AuthButtonType.icon,
-                                    iconType: AuthIconType.secondary,
-                                    borderRadius: 300,
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: FacebookAuthButton(
+                                    onPressed: model.facebookLogin,
+                                    style: AuthButtonStyle(
+                                      buttonType: AuthButtonType.icon,
+                                      iconType: AuthIconType.secondary,
+                                      borderRadius: 300,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
-                        ],
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
                     Spacer(),
                   ],
                 ),
               ),
               if (model.isBusy)
-              AbsorbPointer(
-                child: Container(
-                  color: Colors.black45,
-                  child: Center(
-                    child: SizedBox(
-                      width: 160,
-                      height: 160,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 16,
-                        color: ColorTheme.cyberGrape,
+                AbsorbPointer(
+                  child: Container(
+                    color: Colors.black45,
+                    child: Center(
+                      child: SizedBox(
+                        width: 160,
+                        height: 160,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 16,
+                          color: ColorTheme.cyberGrape,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         );

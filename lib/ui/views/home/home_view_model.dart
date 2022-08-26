@@ -24,6 +24,7 @@ class HomeViewModel extends BaseViewModel {
   KsUser? get user => _userService.ksUser;
   String get username => user?.name ?? '';
   String get userEmail => user?.email ?? '';
+  String? get userDisplayPhoto => user?.display;
 
   Future initialise() async {
     _quizService.initialise();

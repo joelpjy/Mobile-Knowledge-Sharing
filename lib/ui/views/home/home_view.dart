@@ -10,6 +10,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       builder: (context, model, child) {
+        var userDisplayPhoto = model.userDisplayPhoto;
         return Scaffold(
           drawer: Drawer(
             child: ListView(
@@ -22,13 +23,28 @@ class HomeView extends StatelessWidget {
                   ),
                   child: Align(
                     alignment: Alignment.bottomRight,
-                    child: Text(
-                      '${model.username}\n${model.userEmail}',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                      textAlign: TextAlign.end,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        if (userDisplayPhoto != null)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: CircleAvatar(
+                              foregroundImage:
+                                  NetworkImage(userDisplayPhoto),
+                              radius: 30,
+                            ),
+                          ),
+                        Text(
+                          '${model.username}\n${model.userEmail}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                          textAlign: TextAlign.end,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -104,6 +120,7 @@ class QuizListView extends StatelessWidget {
   final HomeViewModel model;
 
   QuizListView({required this.model});
+
   final Tween<Offset> _offset = Tween(begin: Offset(0, 1), end: Offset(0, 0));
 
   @override

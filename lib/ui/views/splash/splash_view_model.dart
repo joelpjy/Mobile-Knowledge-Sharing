@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
-import 'package:mobile_knowledge_sharing_app/app/config.router.dart';
 import 'package:mobile_knowledge_sharing_app/ui/views/home/home_view.dart';
 import 'package:mobile_knowledge_sharing_app/services/user_service.dart';
 import 'package:stacked/stacked.dart';
@@ -11,10 +10,16 @@ class SplashViewModel extends BaseViewModel {
   final _snackbarService = locator<SnackbarService>();
   final _userService = locator<UserService>();
 
+  bool get isLogin => _userService.isLogin;
+
   Future initialise() async {
     await _userService.initialise();
+    notifyListeners();
     if (_userService.isLogin){
-      await _navigationService.replaceWith(Routes.homeView);
+      await Future.delayed(Duration(seconds: 2));
+      await _navigationService.replaceWithTransition(HomeView(),
+          duration: Duration(milliseconds: 1000),
+          transitionStyle: Transition.fade);
       return;
     }
   }

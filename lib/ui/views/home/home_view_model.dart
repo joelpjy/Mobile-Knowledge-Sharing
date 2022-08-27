@@ -11,7 +11,7 @@ import 'package:mobile_knowledge_sharing_app/ui/views/question/question_view.dar
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class HomeViewModel extends BaseViewModel {
+class HomeViewModel extends ReactiveViewModel {
   final _navigationService = locator<NavigationService>();
   final _quizService = locator<QuizService>();
   final _userService = locator<UserService>();
@@ -19,7 +19,7 @@ class HomeViewModel extends BaseViewModel {
   GlobalKey<AnimatedListState> get questionListKey =>
       _quizService.questionListKey;
   List<Question> get questionList => _quizService.questionList;
-  String get totalScore => _quizService.getCurrentScore();
+  String get totalScore => _quizService.totalScore;
 
   KsUser? get user => _userService.ksUser;
   String get username => user?.name ?? '';
@@ -51,4 +51,7 @@ class HomeViewModel extends BaseViewModel {
     await _userService.logout();
     await _navigationService.replaceWith(Routes.splashView);
   }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_quizService];
 }

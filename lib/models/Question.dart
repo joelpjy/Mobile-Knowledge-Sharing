@@ -1,4 +1,5 @@
 class Question {
+  final String id;
   final String label;
   final String question;
   final int answer;
@@ -7,6 +8,7 @@ class Question {
   bool isCorrect = false;
 
   Question({
+    required this.id,
     required this.label,
     required this.question,
     required this.answer,
@@ -14,4 +16,17 @@ class Question {
     required this.isAnswered,
     required this.isCorrect,
   });
+
+  factory Question.fromData(String id, String uid, Map<String, dynamic> data) {
+    print(data['isAnswered']?[uid] );
+    return Question(
+      id: id,
+      label: data['label'],
+      question: data['question'],
+      answer: data['answer'],
+      choices: List<String>.from(data['choices']),
+      isAnswered: data['isAnswered']?[uid] ?? false,
+      isCorrect: data['isCorrect']?[uid] ?? false,
+    );
+  }
 }

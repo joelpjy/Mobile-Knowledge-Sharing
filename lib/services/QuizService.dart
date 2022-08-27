@@ -1,70 +1,57 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
+import 'package:mobile_knowledge_sharing_app/app/config.logger.dart';
 import 'package:mobile_knowledge_sharing_app/models/Question.dart';
+import 'package:mobile_knowledge_sharing_app/services/user_service.dart';
+import 'package:stacked/stacked.dart';
 
-class QuizService {
-  final List<Question> _finalQuestionList = [
-    Question(
-        label: 'Question 1',
-        question: 'Who is not part of the mobile team?',
-        answer: 6,
-        choices: [
-          'Yu Long',
-          'Karen',
-          'JT',
-          'Jonathan',
-          'Joel',
-          'hai',
-          'Chris',
-        ],
-        isAnswered: false,
-        isCorrect: false),
-    Question(
-        label: 'Question 2',
-        question: 'h',
-        answer: 0,
-        choices: [''],
-        isAnswered: false,
-        isCorrect: false),
-    Question(
-        label: 'Question 3',
-        question: 'h',
-        answer: 0,
-        choices: [''],
-        isAnswered: false,
-        isCorrect: false),
-    Question(
-        label: 'Question 4',
-        question: 'h',
-        answer: 0,
-        choices: [''],
-        isAnswered: false,
-        isCorrect: false),
-  ];
+class QuizService with ReactiveServiceMixin {
+  final log = getLogger('QuizService');
+  final _userService = locator<UserService>();
 
   List<Question> questionList = [];
   final GlobalKey<AnimatedListState> questionListKey = GlobalKey();
+  final ReactiveValue<String> _totalScore = ReactiveValue('0/0');
+  String get totalScore => _totalScore.value;
   int? currentSelectedIndex;
 
+  late FirebaseFirestore db;
+
+  QuizService(){
+    listenToReactiveValues([_totalScore]);
+  }
+
   void initialise() async {
-    var future = Future(() {});
+    db = FirebaseFirestore.instance;
+    var event = await db.collection('quiz').get();
     questionList.clear();
-    for (var i = 0; i < _finalQuestionList.length; i++) {
-      future = future.then((_) {
-        return Future.delayed(Duration(milliseconds: 75), () {
-          questionList.add(_finalQuestionList[i]);
-          questionListKey.currentState?.insertItem(questionList.length - 1);
-        });
-      });
+    for (var doc in event.docs) {
+      var data = doc.data();
+      var question = Question.fromData(doc.id, _userService.ksUser!.id, data);
+      questionList.add(question);
+      questionListKey.currentState?.insertItem(questionList.length - 1);
     }
+    _calculateScore();
   }
 
   void validateAnswer(int selectionOptionIndex) {
-    questionList[currentSelectedIndex!].isAnswered = true;
-    questionList[currentSelectedIndex!].isCorrect =
-        (questionList[currentSelectedIndex!].answer == selectionOptionIndex);
+    var question = questionList[currentSelectedIndex!];
+
+    var isCorrect = question.answer == selectionOptionIndex;
+    question.isAnswered = true;
+    question.isCorrect = isCorrect;
+    db.collection('quiz').doc(question.id)
+      ..set({
+        'isAnswered': {_userService.ksUser!.id: true},
+      }, SetOptions(merge: true))
+      ..set({
+        'isCorrect': {_userService.ksUser!.id: isCorrect},
+      }, SetOptions(merge: true));
+    _calculateScore();
   }
 
-  String getCurrentScore() {
+  void _calculateScore() {
     var correctCount = 0;
     questionList.forEach((question) {
       if (question.isAnswered && question.isCorrect) {
@@ -72,6 +59,6 @@ class QuizService {
       }
     });
 
-    return '$correctCount/${questionList.length}';
+    _totalScore.value = '$correctCount/${questionList.length}';
   }
 }

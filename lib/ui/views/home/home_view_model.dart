@@ -27,7 +27,7 @@ class HomeViewModel extends ReactiveViewModel {
   String? get userDisplayPhoto => user?.display;
 
   Future initialise() async {
-    _quizService.initialise();
+    await _quizService.initialise();
   }
 
   void questionMarkPress() async {

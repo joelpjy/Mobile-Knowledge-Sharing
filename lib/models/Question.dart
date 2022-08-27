@@ -18,7 +18,6 @@ class Question {
   });
 
   factory Question.fromData(String id, String uid, Map<String, dynamic> data) {
-    print(data['isAnswered']?[uid] );
     return Question(
       id: id,
       label: data['label'],

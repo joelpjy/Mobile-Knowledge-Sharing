@@ -83,30 +83,33 @@ class HomeView extends StatelessWidget {
               )
             ],
           ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Flexible(
-                child: QuizListView(model: model),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              DelayedDisplay(
-                delay: Duration(seconds: 1),
-                fadeIn: true,
-                slidingBeginOffset: Offset(0, 1),
-                child: Text(
-                  'Total Score: ${model.totalScore}',
-                  style: TextStyle(
-                      fontFamily: 'Aharoni',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 21,
-                      color: ColorTheme.redOrange),
+          body: RefreshIndicator(
+            onRefresh: model.initialise,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Flexible(
+                  child: QuizListView(model: model,),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 20,
+                ),
+                DelayedDisplay(
+                  delay: Duration(seconds: 1),
+                  fadeIn: true,
+                  slidingBeginOffset: Offset(0, 1),
+                  child: Text(
+                    'Total Score: ${model.totalScore}',
+                    style: TextStyle(
+                        fontFamily: 'Aharoni',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 21,
+                        color: ColorTheme.redOrange),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

@@ -10,8 +10,9 @@ class QuizService with ReactiveServiceMixin {
   final log = getLogger('QuizService');
   final _userService = locator<UserService>();
 
-  List<Question> questionList = [];
-  final GlobalKey<AnimatedListState> questionListKey = GlobalKey();
+  final ReactiveValue<List<Question>> _questionList = ReactiveValue([]);
+  List<Question> get questionList => _questionList.value;
+  GlobalKey<AnimatedListState> questionListKey = GlobalKey();
   final ReactiveValue<String> _totalScore = ReactiveValue('0/0');
   String get totalScore => _totalScore.value;
   int? currentSelectedIndex;
@@ -19,17 +20,18 @@ class QuizService with ReactiveServiceMixin {
   late FirebaseFirestore db;
 
   QuizService(){
-    listenToReactiveValues([_totalScore]);
+    listenToReactiveValues([_totalScore, _questionList]);
   }
 
-  void initialise() async {
+  Future<void> initialise() async {
     db = FirebaseFirestore.instance;
     var event = await db.collection('quiz').get();
-    questionList.clear();
+    questionListKey = GlobalKey();
+    _questionList.value.clear();
     for (var doc in event.docs) {
       var data = doc.data();
       var question = Question.fromData(doc.id, _userService.ksUser!.id, data);
-      questionList.add(question);
+      _questionList.value.add(question);
       questionListKey.currentState?.insertItem(questionList.length - 1);
     }
     _calculateScore();

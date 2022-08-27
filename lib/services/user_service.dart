@@ -33,10 +33,6 @@ class UserService {
     }
   }
 
-  void _signInGoogleSilently() {
-    googleSignIn(isLoggedIn: true);
-  }
-
   void _setLogin(int signInMethod, KsUser? user) async {
     ksUser = user;
     if (user == null) {

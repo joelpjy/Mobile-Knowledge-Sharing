@@ -66,7 +66,7 @@ class SplashView extends StatelessWidget {
                     Spacer(
                       flex: 2,
                     ),
-                    if (!model.isLogin)
+                    if (!model.isLogin && model.initialised)
                       DelayedDisplay(
                         delay: Duration(seconds: 2),
                         fadingDuration: const Duration(milliseconds: 500),

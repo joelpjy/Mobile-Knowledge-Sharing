@@ -22,6 +22,7 @@ class SplashViewModel extends BaseViewModel {
           transitionStyle: Transition.fade);
       return;
     }
+    setInitialised(true);
   }
 
 

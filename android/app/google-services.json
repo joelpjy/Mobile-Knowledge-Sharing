@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "639612988752-soq10qk3rnu6kk8msbnlhic6qul2ojfn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.netvirta.mobile_knowledge_sharing_app",
+            "certificate_hash": "46d1297ff31adc57dbc6d8e38b40bee0c193fc8e"
+          }
+        },
+        {
           "client_id": "639612988752-5538en0uk4irsrmtvfnk2snamfaeoolv.apps.googleusercontent.com",
           "client_type": 3
         }

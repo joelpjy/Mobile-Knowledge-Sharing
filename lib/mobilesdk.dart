@@ -16,4 +16,9 @@ class MobileSdk {
     await _channel.invokeMethod('initialize');
   }
 
+  @extractMethod
+  static Future<void> trigger() async {
+    await _channel.invokeMethod('trigger');
+  }
+
 }

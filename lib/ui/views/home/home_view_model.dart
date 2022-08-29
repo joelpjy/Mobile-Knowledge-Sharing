@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.router.dart';
 import 'package:mobile_knowledge_sharing_app/models/Question.dart';
+import 'package:mobile_knowledge_sharing_app/mobilesdk.dart';
 import 'package:mobile_knowledge_sharing_app/models/user.dart';
 import 'package:mobile_knowledge_sharing_app/services/QuizService.dart';
 import 'package:mobile_knowledge_sharing_app/services/user_service.dart';
@@ -32,8 +32,7 @@ class HomeViewModel extends ReactiveViewModel {
   }
 
   void questionMarkPress() async {
-    await FirebaseCrashlytics.instance
-        .recordError(error, null, reason: 'Aiya walaooo', fatal: true);
+    await MobileSdk.trigger();
     exit(0);
   }
 

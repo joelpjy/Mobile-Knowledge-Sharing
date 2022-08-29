@@ -22,7 +22,7 @@ class UserService {
     var uid = preferences.getString(USER_ID_KEY);
     if (uid != null) {
       var signInMethod = preferences.getInt(USER_SIGNIN_METHOD);
-      switch (signInMethod){
+      switch (signInMethod) {
         case 0:
           await googleSignIn(isLoggedIn: true);
           break;
@@ -50,27 +50,31 @@ class UserService {
   }
 
   Future<bool> googleSignIn({bool isLoggedIn = false}) async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser;
-    if (isLoggedIn) {
-      googleUser = await GoogleSignIn().signInSilently();
-    } else {
-      googleUser = await GoogleSignIn().signIn();
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser;
+      if (isLoggedIn) {
+        googleUser = await GoogleSignIn().signInSilently();
+      } else {
+        googleUser = await GoogleSignIn().signIn();
+      }
+
+      // Obtain the auth details from the request
+      final googleAuth = await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      var userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      return _firebaseLogin(SignIn.GOOGLE, userCredential);
+    } catch (e) {
+      return false;
     }
-
-    // Obtain the auth details from the request
-    final googleAuth = await googleUser?.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-
-    // Once signed in, return the UserCredential
-    var userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    return _firebaseLogin(SignIn.GOOGLE, userCredential);
   }
 
   Future<bool> facebookSignIn({bool isLoggedIn = false}) async {

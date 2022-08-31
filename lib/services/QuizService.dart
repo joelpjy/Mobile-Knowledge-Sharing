@@ -58,7 +58,7 @@ class QuizService with ReactiveServiceMixin {
 
     var isCorrect = question.answer == selectionOptionIndex;
 
-    if (question.label == 'Question: Predict Winning Team' && !isCorrect) {
+    if (question.label == questionList.last.label && !isCorrect) {
       // reality not accepted
       throw MobileMostDefinitelyMustWinException();
     }

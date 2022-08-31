@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
+import 'package:mobile_knowledge_sharing_app/models/user.dart';
 import 'package:mobile_knowledge_sharing_app/ui/views/home/home_view.dart';
 import 'package:mobile_knowledge_sharing_app/services/user_service.dart';
 import 'package:stacked/stacked.dart';
@@ -15,7 +17,7 @@ class SplashViewModel extends BaseViewModel {
   Future initialise() async {
     await _userService.initialise();
     notifyListeners();
-    if (_userService.isLogin){
+    if (_userService.isLogin) {
       await Future.delayed(Duration(seconds: 2));
       await _navigationService.replaceWithTransition(HomeView(),
           duration: Duration(milliseconds: 1000),
@@ -25,6 +27,24 @@ class SplashViewModel extends BaseViewModel {
     setInitialised(true);
   }
 
+  String _userName = '';
+
+  void fakeLogin() async {
+    if (_userName.isEmpty) {
+      _snackbarService.showSnackbar(
+          message: 'Please provide your preferred username');
+      return;
+    }
+    _userService.ksUser = KsUser(UniqueKey().toString(), _userName,
+        '$_userName@netvirta.com', _userName);
+    await _navigationService.replaceWithTransition(HomeView(),
+        duration: Duration(milliseconds: 1000),
+        transitionStyle: Transition.fade);
+  }
+
+  void setUserName(String name) {
+    _userName = name;
+  }
 
   void facebookLogin() async {
     _signIn(SignIn.FACEBOOK);
@@ -38,8 +58,7 @@ class SplashViewModel extends BaseViewModel {
     setBusy(true);
     try {
       bool isLogin;
-      switch (signIn){
-
+      switch (signIn) {
         case SignIn.GOOGLE:
           isLogin = await _userService.googleSignIn();
           break;
@@ -65,7 +84,4 @@ class SplashViewModel extends BaseViewModel {
   }
 }
 
-
-enum SignIn {
-  GOOGLE, FACEBOOK
-}
+enum SignIn { GOOGLE, FACEBOOK }

@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_knowledge_sharing_app/app/app.dart';
@@ -15,6 +16,7 @@ void main() async {
   await setupLocator();
   // setupDialogUi();
   // setupSnackbar();
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   // var firebaseCrashlyticsService = locator<FirebaseCrashlyticsService>();
   // await firebaseCrashlyticsService.initialise();
   // launch app in portrait mode

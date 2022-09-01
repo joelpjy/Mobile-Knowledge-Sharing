@@ -17,6 +17,7 @@ void main() async {
   // setupDialogUi();
   // setupSnackbar();
   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   // var firebaseCrashlyticsService = locator<FirebaseCrashlyticsService>();
   // await firebaseCrashlyticsService.initialise();
   // launch app in portrait mode

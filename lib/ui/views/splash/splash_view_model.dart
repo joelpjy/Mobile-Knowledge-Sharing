@@ -4,6 +4,7 @@ import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
 import 'package:mobile_knowledge_sharing_app/models/user.dart';
 import 'package:mobile_knowledge_sharing_app/ui/views/home/home_view.dart';
 import 'package:mobile_knowledge_sharing_app/services/user_service.dart';
+import 'package:mobile_knowledge_sharing_app/utils/firebase_crashlytics_utils.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -15,6 +16,7 @@ class SplashViewModel extends BaseViewModel {
   bool get isLogin => _userService.isLogin;
 
   Future initialise() async {
+    FirebaseCrashlyticsUtils.log('SplashViewModel', 'initialise', 'called');
     await _userService.initialise();
     notifyListeners();
     if (_userService.isLogin) {
@@ -30,6 +32,7 @@ class SplashViewModel extends BaseViewModel {
   String _userName = '';
 
   void fakeLogin() async {
+    FirebaseCrashlyticsUtils.log('SplashViewModel', 'fakeLogin', 'logging in');
     if (_userName.isEmpty) {
       _snackbarService.showSnackbar(
           message: 'Please provide your preferred username');

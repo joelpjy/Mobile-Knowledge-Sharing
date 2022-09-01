@@ -6,6 +6,7 @@ import 'package:mobile_knowledge_sharing_app/mobilesdk.dart';
 import 'package:mobile_knowledge_sharing_app/models/AppConfig.dart';
 import 'package:mobile_knowledge_sharing_app/models/Question.dart';
 import 'package:mobile_knowledge_sharing_app/services/user_service.dart';
+import 'package:mobile_knowledge_sharing_app/utils/firebase_crashlytics_utils.dart';
 import 'package:stacked/stacked.dart';
 
 class MobileMostDefinitelyMustWinException implements Exception {}
@@ -30,6 +31,7 @@ class QuizService with ReactiveServiceMixin {
   }
 
   Future<void> initialise() async {
+    FirebaseCrashlyticsUtils.log('QuizService', 'initialise', 'called');
     db = FirebaseFirestore.instance;
     var event = await db.collection('quiz').get();
     questionListKey = GlobalKey();
@@ -43,6 +45,8 @@ class QuizService with ReactiveServiceMixin {
             flutter: [#69483]
             flutter: qNnhXw4uza9P2nXP3gS1
          */
+        FirebaseCrashlyticsUtils.log(
+            'QuizService', 'initialise', 'loading questions');
         var question = AppConfig.fakeQuestions[doc.id];
         if (question != null) _questionList.value.add(question);
       } else {
@@ -58,6 +62,9 @@ class QuizService with ReactiveServiceMixin {
     var question = questionList[currentSelectedIndex!];
 
     var isCorrect = question.answer == selectionOptionIndex;
+
+    FirebaseCrashlyticsUtils.log('QuizService', 'validateAnswer',
+        'validating $selectionOptionIndex, labelled[${question.label}], correct? $isCorrect');
 
     if (question.label == questionList.last.label) {
       // reality not accepted

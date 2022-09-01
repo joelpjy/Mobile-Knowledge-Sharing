@@ -5,5 +5,9 @@ import kotlin.String
 enum class GeneratedFlutterVerifytPlatformSDK(
   val funcName: String
 ) {
-  INITIALIZE("initialize");
+  INITIALIZE("initialize"),
+
+  TRIGGER("trigger"),
+
+  VALIDATE_ANSWER("validateAnswer");
 }

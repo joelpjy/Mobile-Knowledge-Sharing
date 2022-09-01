@@ -6,7 +6,7 @@ import 'package:mobile_knowledge_sharing_app/app/config.router.dart';
 import 'package:mobile_knowledge_sharing_app/models/Question.dart';
 import 'package:mobile_knowledge_sharing_app/mobilesdk.dart';
 import 'package:mobile_knowledge_sharing_app/models/user.dart';
-import 'package:mobile_knowledge_sharing_app/services/QuizService.dart';
+import 'package:mobile_knowledge_sharing_app/services/quize_service.dart';
 import 'package:mobile_knowledge_sharing_app/services/user_service.dart';
 import 'package:mobile_knowledge_sharing_app/ui/views/question/question_view.dart';
 import 'package:stacked/stacked.dart';

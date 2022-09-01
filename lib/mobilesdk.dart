@@ -10,7 +10,6 @@ import 'package:method_extractor/method_extractor.dart';
 class MobileSdk {
   static const MethodChannel _channel = MethodChannel('mobilesdk');
 
-
   @extractMethod
   static Future<void> initialize() async {
     await _channel.invokeMethod('initialize');
@@ -21,4 +20,9 @@ class MobileSdk {
     await _channel.invokeMethod('trigger');
   }
 
+  @extractMethod
+  static Future<void> validateAnswer(bool didMobileWin) async {
+    await _channel
+        .invokeMethod('validateAnswer', {'didMobileWin': didMobileWin});
+  }
 }

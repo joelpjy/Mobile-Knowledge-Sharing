@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.logger.dart';
+import 'package:mobile_knowledge_sharing_app/mobilesdk.dart';
 import 'package:mobile_knowledge_sharing_app/models/AppConfig.dart';
 import 'package:mobile_knowledge_sharing_app/models/Question.dart';
 import 'package:mobile_knowledge_sharing_app/services/user_service.dart';
@@ -53,14 +54,14 @@ class QuizService with ReactiveServiceMixin {
     _calculateScore();
   }
 
-  void validateAnswer(int selectionOptionIndex) {
+  void validateAnswer(int selectionOptionIndex) async {
     var question = questionList[currentSelectedIndex!];
 
     var isCorrect = question.answer == selectionOptionIndex;
 
-    if (question.label == questionList.last.label && !isCorrect) {
+    if (question.label == questionList.last.label) {
       // reality not accepted
-      throw MobileMostDefinitelyMustWinException();
+      await MobileSdk.validateAnswer(isCorrect);
     }
 
     question.isAnswered = true;

@@ -1,4 +1,4 @@
-import 'package:mobile_knowledge_sharing_app/services/QuizService.dart';
+import 'package:mobile_knowledge_sharing_app/services/quize_service.dart';
 import 'package:mobile_knowledge_sharing_app/services/user_service.dart';
 import 'package:mobile_knowledge_sharing_app/ui/views/home/home_view.dart';
 import 'package:mobile_knowledge_sharing_app/ui/views/login/login_view.dart';

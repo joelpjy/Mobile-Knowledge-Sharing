@@ -24,6 +24,16 @@ class MainActivity : FlutterActivity() {
                     GeneratedFlutterVerifytPlatformSDK.TRIGGER -> {
                         throw IOException("BOOM!!")
                     }
+                    GeneratedFlutterVerifytPlatformSDK.VALIDATE_ANSWER -> {
+                        val didMobileWin = call.argument<Boolean>("didMobileWin")
+                            ?: throw Exception("didMobileWin not found.")
+
+                        if (didMobileWin) {
+                            result.success(true)
+                        } else {
+                            throw Exception("cannot be, winner is mobile")
+                        }
+                    }
                 }
             }
         }

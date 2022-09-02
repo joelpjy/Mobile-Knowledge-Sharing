@@ -5,7 +5,7 @@ import 'package:mobile_knowledge_sharing_app/services/user_service.dart';
 class FirebaseCrashlyticsUtils {
   static void log(String callerName, String methodName, String msg) {
     var breadCrumb =
-        'callerName[$callerName], methodName[$methodName], message[$msg], user[${locator<UserService>().ksUser?.id}]';
+        'callerName[$callerName], methodName[$methodName], message[$msg], user[${locator<UserService>().ksUser?.name}]';
     FirebaseCrashlytics.instance.log(breadCrumb);
   }
 }

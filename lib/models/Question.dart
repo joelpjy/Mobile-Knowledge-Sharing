@@ -24,8 +24,8 @@ class Question {
       question: data['question'],
       answer: data['answer'],
       choices: List<String>.from(data['choices']),
-      isAnswered: data['isAnswered']?[uid] ?? false,
-      isCorrect: data['isCorrect']?[uid] ?? false,
+      isAnswered: data['isAnswered'] ?? false,
+      isCorrect: data['isCorrect'] ?? false,
     );
   }
 }

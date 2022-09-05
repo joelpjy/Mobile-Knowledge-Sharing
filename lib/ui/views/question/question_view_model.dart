@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_knowledge_sharing_app/app/config.logger.dart';
-import 'package:mobile_knowledge_sharing_app/services/quize_service.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
+import 'package:mobile_knowledge_sharing_app/app/config.logger.dart';
 import 'package:mobile_knowledge_sharing_app/models/Question.dart';
+import 'package:mobile_knowledge_sharing_app/services/quize_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -36,7 +36,7 @@ class QuestionViewModel extends BaseViewModel {
   }
 
   void selectChoice(int index) async {
-    _quizService.validateAnswer(index);
+    await _quizService.validateAnswer(index);
 
     if (currentQuestion.isCorrect) {
       log.d('OK GOOD');

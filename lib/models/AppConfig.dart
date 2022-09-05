@@ -1,9 +1,6 @@
-import 'package:flutter/foundation.dart';
-import 'package:mobile_knowledge_sharing_app/models/Question.dart';
-
 class AppConfig {
   static final bool usingFakeLogin = true;
-  static final Map<String, Question> fakeQuestions = {
+  /*static final Map<String, Question> fakeQuestions = {
     'PETyZPZ7IOaXqCAU2y2x': Question(
         id: UniqueKey().toString(),
         label: 'Question: Mobile Team Members',
@@ -28,5 +25,5 @@ class AppConfig {
         choices: ['Mobile', 'Core', 'Devops'],
         isAnswered: false,
         isCorrect: false)
-  };
+  };*/
 }

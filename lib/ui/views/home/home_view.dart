@@ -31,8 +31,8 @@ class HomeView extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: CircleAvatar(
-                              foregroundImage:
-                                  NetworkImage(userDisplayPhoto),
+                              foregroundImage: NetworkImage(
+                                  "https://as2.ftcdn.net/v2/jpg/01/17/98/93/1000_F_117989378_Pzd5jxeB9L6kt46S1g7vt16lbfDUvSdB.jpg"),
                               radius: 30,
                             ),
                           ),
@@ -71,17 +71,6 @@ class HomeView extends StatelessWidget {
                     color: ColorTheme.white),
               ),
             ),
-            actions: [
-              IconButton(
-                onPressed: model.questionMarkPress,
-                color: Colors.white,
-                icon: Icon(
-                  Icons.info,
-                  color: Colors.white,
-                  size: 25.0,
-                ),
-              )
-            ],
           ),
           body: RefreshIndicator(
             onRefresh: model.initialise,
@@ -90,7 +79,9 @@ class HomeView extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Flexible(
-                  child: QuizListView(model: model,),
+                  child: QuizListView(
+                    model: model,
+                  ),
                 ),
                 SizedBox(
                   height: 20,

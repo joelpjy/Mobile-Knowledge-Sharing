@@ -47,10 +47,14 @@ class QuizService with ReactiveServiceMixin {
          */
         FirebaseCrashlyticsUtils.log(
             'QuizService', 'initialise', 'loading questions');
-        var question = AppConfig.fakeQuestions[doc.id];
-        if (question != null) _questionList.value.add(question);
+        //var question = AppConfig.fakeQuestions[doc.id];
+        //if (question != null) _questionList.value.add(question);
+        var question =
+            Question.fromData(doc.id, _userService.ksUser!.name, data);
+        _questionList.value.add(question);
       } else {
-        var question = Question.fromData(doc.id, _userService.ksUser!.id, data);
+        var question =
+            Question.fromData(doc.id, _userService.ksUser!.name, data);
         _questionList.value.add(question);
       }
       questionListKey.currentState?.insertItem(questionList.length - 1);
@@ -58,7 +62,7 @@ class QuizService with ReactiveServiceMixin {
     _calculateScore();
   }
 
-  void validateAnswer(int selectionOptionIndex) async {
+  Future<void> validateAnswer(int selectionOptionIndex) async {
     var question = questionList[currentSelectedIndex!];
 
     var isCorrect = question.answer == selectionOptionIndex;
@@ -73,12 +77,12 @@ class QuizService with ReactiveServiceMixin {
 
     question.isAnswered = true;
     question.isCorrect = isCorrect;
-    db.collection('quiz').doc(question.id)
+    db.collection('scores').doc(question.id)
       ..set({
-        'isAnswered': {_userService.ksUser!.id: true},
+        'isAnswered': {_userService.ksUser!.name: true},
       }, SetOptions(merge: true))
       ..set({
-        'isCorrect': {_userService.ksUser!.id: isCorrect},
+        'isCorrect': {_userService.ksUser!.name: isCorrect},
       }, SetOptions(merge: true));
     _calculateScore();
   }

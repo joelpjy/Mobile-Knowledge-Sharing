@@ -32,7 +32,7 @@ class HomeView extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: CircleAvatar(
                               foregroundImage: NetworkImage(
-                                  "https://as2.ftcdn.net/v2/jpg/01/17/98/93/1000_F_117989378_Pzd5jxeB9L6kt46S1g7vt16lbfDUvSdB.jpg"),
+                                  'https://as2.ftcdn.net/v2/jpg/01/17/98/93/1000_F_117989378_Pzd5jxeB9L6kt46S1g7vt16lbfDUvSdB.jpg'),
                               radius: 30,
                             ),
                           ),

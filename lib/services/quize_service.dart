@@ -35,6 +35,7 @@ class QuizService with ReactiveServiceMixin {
     FirebaseCrashlyticsUtils.log('QuizService', 'initialise', 'called');
     db = FirebaseFirestore.instance;
     var event = await db.collection('quiz').get();
+    var tempQuestionList = <Question>[];
 
     questionListKey = GlobalKey();
     _questionList.value.clear();
@@ -42,19 +43,28 @@ class QuizService with ReactiveServiceMixin {
       var data = doc.data();
       if (AppConfig.usingFakeLogin) {
         debugPrint('Quiz Doc ID: ${doc.id}');
-
         FirebaseCrashlyticsUtils.log(
             'QuizService', 'initialise', 'loading questions');
 
         var question =
             Question.fromData(doc.id, _userService.ksUser!.name, data);
-        _questionList.value.add(question);
+        tempQuestionList.add(question);
       } else {
         var question =
             Question.fromData(doc.id, _userService.ksUser!.name, data);
-        _questionList.value.add(question);
+        tempQuestionList.add(question);
       }
-      questionListKey.currentState?.insertItem(questionList.length - 1);
+    }
+
+    //for fancy animation only
+    var future = Future(() {});
+    for (var i = 0; i < tempQuestionList.length; i++) {
+      future = future.then((_) {
+        return Future.delayed(Duration(milliseconds: 75), () {
+          _questionList.value.add(tempQuestionList[i]);
+          questionListKey.currentState?.insertItem(questionList.length - 1);
+        });
+      });
     }
 
     //add listener for updating the question to be enabled from firestore

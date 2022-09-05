@@ -6,26 +6,27 @@ class Question {
   final List<String> choices;
   bool isAnswered = false;
   bool isCorrect = false;
+  bool isEnabled = false;
 
-  Question({
-    required this.id,
-    required this.label,
-    required this.question,
-    required this.answer,
-    required this.choices,
-    required this.isAnswered,
-    required this.isCorrect,
-  });
+  Question(
+      {required this.id,
+      required this.label,
+      required this.question,
+      required this.answer,
+      required this.choices,
+      required this.isAnswered,
+      required this.isCorrect,
+      required this.isEnabled});
 
   factory Question.fromData(String id, String uid, Map<String, dynamic> data) {
     return Question(
-      id: id,
-      label: data['label'],
-      question: data['question'],
-      answer: data['answer'],
-      choices: List<String>.from(data['choices']),
-      isAnswered: data['isAnswered'] ?? false,
-      isCorrect: data['isCorrect'] ?? false,
-    );
+        id: id,
+        label: data['label'],
+        question: data['question'],
+        answer: data['answer'],
+        choices: List<String>.from(data['choices']),
+        isAnswered: data['isAnswered'] ?? false,
+        isCorrect: data['isCorrect'] ?? false,
+        isEnabled: data['isEnabled'] ?? false);
   }
 }

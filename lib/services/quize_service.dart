@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.logger.dart';
 import 'package:mobile_knowledge_sharing_app/mobilesdk.dart';
@@ -34,21 +35,17 @@ class QuizService with ReactiveServiceMixin {
     FirebaseCrashlyticsUtils.log('QuizService', 'initialise', 'called');
     db = FirebaseFirestore.instance;
     var event = await db.collection('quiz').get();
+
     questionListKey = GlobalKey();
     _questionList.value.clear();
     for (var doc in event.docs) {
       var data = doc.data();
       if (AppConfig.usingFakeLogin) {
-        debugPrint(doc.id);
-        /**
-         * flutter: PETyZPZ7IOaXqCAU2y2x
-            flutter: [#69483]
-            flutter: qNnhXw4uza9P2nXP3gS1
-         */
+        debugPrint('Quiz Doc ID: ${doc.id}');
+
         FirebaseCrashlyticsUtils.log(
             'QuizService', 'initialise', 'loading questions');
-        //var question = AppConfig.fakeQuestions[doc.id];
-        //if (question != null) _questionList.value.add(question);
+
         var question =
             Question.fromData(doc.id, _userService.ksUser!.name, data);
         _questionList.value.add(question);
@@ -59,6 +56,19 @@ class QuizService with ReactiveServiceMixin {
       }
       questionListKey.currentState?.insertItem(questionList.length - 1);
     }
+
+    //add listener for updating the question to be enabled from firestore
+    final Stream<QuerySnapshot> _quizStream = db.collection('quiz').snapshots();
+    _quizStream.listen((event) {
+      for (var doc in event.docs) {
+        var databaseMap = doc.data() as Map<String, dynamic>;
+        _questionList.value
+            .firstWhereOrNull((it) => it.id == doc.id)
+            ?.isEnabled = databaseMap['isEnabled'];
+      }
+      notifyListeners();
+    });
+
     _calculateScore();
   }
 

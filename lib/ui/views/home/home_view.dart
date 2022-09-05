@@ -96,7 +96,7 @@ class HomeView extends StatelessWidget {
                         fontFamily: 'Aharoni',
                         fontWeight: FontWeight.w600,
                         fontSize: 21,
-                        color: ColorTheme.redOrange),
+                        color: ColorTheme.russianViolet),
                   ),
                 ),
               ],
@@ -137,7 +137,8 @@ class QuizListView extends StatelessWidget {
                       fontSize: 17,
                       color: ColorTheme.russianViolet),
                 ),
-                greyedOut: model.questionList[index].isAnswered,
+                greyedOut: model.questionList[index].isAnswered ||
+                    !model.questionList[index].isEnabled,
               ),
               trailing: model.questionList[index].isAnswered
                   ? model.questionList[index].isCorrect

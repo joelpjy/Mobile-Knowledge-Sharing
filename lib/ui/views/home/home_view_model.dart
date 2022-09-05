@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.router.dart';
-import 'package:mobile_knowledge_sharing_app/models/Question.dart';
 import 'package:mobile_knowledge_sharing_app/mobilesdk.dart';
+import 'package:mobile_knowledge_sharing_app/models/Question.dart';
 import 'package:mobile_knowledge_sharing_app/models/user.dart';
 import 'package:mobile_knowledge_sharing_app/services/quize_service.dart';
 import 'package:mobile_knowledge_sharing_app/services/user_service.dart';
@@ -39,14 +39,17 @@ class HomeViewModel extends ReactiveViewModel {
   }
 
   void questionSelected(int index) async {
-    FirebaseCrashlyticsUtils.log('HomeViewModel', 'questionSelected', 'selecting: $index');
+    FirebaseCrashlyticsUtils.log(
+        'HomeViewModel', 'questionSelected', 'selecting: $index');
     _quizService.currentSelectedIndex = index;
-    //if (!_quizService.questionList[index].isAnswered) {
-    await _navigationService.navigateWithTransition(QuestionView(),
-        opaque: true,
-        duration: Duration(milliseconds: 200),
-        transitionStyle: Transition.fade);
-    //}
+
+    if (_quizService.questionList[index].isEnabled &&
+        !_quizService.questionList[index].isAnswered) {
+      await _navigationService.navigateWithTransition(QuestionView(),
+          opaque: true,
+          duration: Duration(milliseconds: 200),
+          transitionStyle: Transition.fade);
+    }
     notifyListeners();
   }
 

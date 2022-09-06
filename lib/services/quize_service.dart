@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.locator.dart';
 import 'package:mobile_knowledge_sharing_app/app/config.logger.dart';
@@ -76,6 +77,10 @@ class QuizService with ReactiveServiceMixin {
             .firstWhereOrNull((it) => it.id == doc.id)
             ?.isEnabled = databaseMap['isEnabled'];
       }
+
+      HapticFeedback.mediumImpact();
+      SystemSound.play(SystemSoundType.click);
+
       notifyListeners();
     });
 
@@ -90,11 +95,6 @@ class QuizService with ReactiveServiceMixin {
     FirebaseCrashlyticsUtils.log('QuizService', 'validateAnswer',
         'validating $selectionOptionIndex, labelled[${question.label}], correct? $isCorrect');
 
-    if (question.label == questionList.last.label) {
-      // reality not accepted
-      await MobileSdk.validateAnswer(isCorrect);
-    }
-
     question.isAnswered = true;
     question.isCorrect = isCorrect;
     db.collection('scores').doc(question.id)
@@ -104,6 +104,12 @@ class QuizService with ReactiveServiceMixin {
       ..set({
         'isCorrect': {_userService.ksUser!.name: isCorrect},
       }, SetOptions(merge: true));
+
+    if (question.label == questionList.last.label) {
+      // reality not accepted
+      await MobileSdk.validateAnswer(isCorrect);
+    }
+
     _calculateScore();
   }
 
